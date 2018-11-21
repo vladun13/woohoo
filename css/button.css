@@ -75,7 +75,7 @@
     -moz-transition-duration: 550ms;
 	}
 	.arrow:hover{
-		-webkit-transform: scale(1.2,1.2);
+	-webkit-transform: scale(1.2,1.2);
     -webkit-transition-timing-function: ease-out;
     -webkit-transition-duration: 550ms;
     -moz-transform: scale(1.2,1.2);
