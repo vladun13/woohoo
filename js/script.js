@@ -373,7 +373,7 @@ var ilinebutton2 = new iLineButton({
 });
 
 window.onclick = function(){
-    ilinebutton2.show(700);
+    ilinebutton2.show(400);
 }
 
 var lt = new Date().getTime();
