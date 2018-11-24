@@ -6,13 +6,13 @@
 var mybuttons = document.querySelectorAll(".ilinebutton_container");
 
 function iLineButton(p) {
-	this.cnt = p.container;
+    this.cnt = p.container;
     this.c = this.cnt.querySelector("canvas");
     this.span = this.cnt.querySelector("span");
     this.ctx = this.c.getContext("2d");
     this.r = p.radius || 20;
     this.linesize = p.linesize || 2;
-    this.linecolor = p.linecolor || "#000";
+    this.linecolor = p.linecolor || "#e2aa33";
     this.mouseradius = p.mouseradius || 100;
     this.mouseforcek = p.mouseforce || 0.4;
     this.mouseforcedown = p.mouseforcedown || -0.4;
@@ -88,13 +88,13 @@ function iLineButton(p) {
     }
     
     this.Spring = function(p1, p2) {
-    	this.p1 = p1;
+        this.p1 = p1;
         this.p2 = p2;
         this.k = 0.05;
         this.l = this.p1.clone().sub(this.p2).len();
         
         this.run = function(){
-        	var v = this.p1.clone().sub(this.p2);
+            var v = this.p1.clone().sub(this.p2);
             var vlen = v.len();
             if (vlen > 0) {
                 var dl = vlen - this.l;
@@ -114,7 +114,7 @@ function iLineButton(p) {
     this.mousedown = false;
     
     this.draw = function(dt) {
-    	if (!this.points.length) return;
+        if (!this.points.length) return;
 
         if (this.mousedown) this.span.classList.add("active");
         else this.span.classList.remove("active");
@@ -147,7 +147,7 @@ function iLineButton(p) {
         for (var i = 0; i < this.springs.length; i++) this.springs[i].run();
         for (var i = 0; i < this.points.length; i++) this.points[i].run();
         
-    	this.ctx.clearRect(0, 0, this.w, this.h);
+        this.ctx.clearRect(0, 0, this.w, this.h);
         this.ctx.strokeStyle = this.linecolor;
         this.ctx.lineWidth = this.linesize;
         this.ctx.lineCap = "round";
@@ -220,36 +220,36 @@ function iLineButton(p) {
         this.ctx.beginPath();
         
         for (var i = 0; i < this.points.length; i++) {
-        	var point = this.points[i];
+            var point = this.points[i];
             if (i == 0) {
-            	this.ctx.moveTo(point.x, point.y);
+                this.ctx.moveTo(point.x, point.y);
             }
             var next;
             
             if (i < this.points.length - 1) {
-            	next = this.points[i+1];
+                next = this.points[i+1];
             } else {
-            	next = this.points[0];
+                next = this.points[0];
             }
             
             if (next.type && point.type) {
-            	var control1, control2, control;
+                var control1, control2, control;
                 var k = 1.8;
                 
                 var dx = next.x - point.x;
                 var dy = next.y - point.y;
                 
                 if (point.type == "rt" || point.type == "lb") {
-                	control1 = {x: point.x + dx/k, y: point.y};
-                	control2 = {x: next.x, y: next.y - dy/k};
+                    control1 = {x: point.x + dx/k, y: point.y};
+                    control2 = {x: next.x, y: next.y - dy/k};
                 } else {
-                	control1 = {x: point.x, y: point.y + dy/k};
-                	control2 = {x: next.x - dx/k, y: next.y};
+                    control1 = {x: point.x, y: point.y + dy/k};
+                    control2 = {x: next.x - dx/k, y: next.y};
                 }
                 
                 this.ctx.bezierCurveTo(control1.x,control1.y,control2.x,control2.y,next.x,next.y);
             } else {
-            	this.ctx.lineTo(next.x, next.y);
+                this.ctx.lineTo(next.x, next.y);
             }
         }
         
@@ -263,10 +263,10 @@ function iLineButton(p) {
     
     this.setHandlers = function(){
         var th = this;
-    	
+        
         this.span.onmousemove = function(e){
-        	var x = e.clientX - this.getBoundingClientRect().left + th.margin;
-			var y = e.clientY - this.getBoundingClientRect().top + th.margin;
+            var x = e.clientX - this.getBoundingClientRect().left + th.margin;
+            var y = e.clientY - this.getBoundingClientRect().top + th.margin;
 
             if (x < th.margin + th.r) x = th.margin + th.r;
             if (x > th.w - th.margin - th.r) x = th.w - th.margin - th.r;
@@ -283,7 +283,7 @@ function iLineButton(p) {
         }
         
         this.span.onmouseout = function(){
-        	th.mouse = false;
+            th.mouse = false;
         }
     }
     
@@ -292,7 +292,7 @@ function iLineButton(p) {
         this.shown = true;
         this.showmaxt = t;
 
-    	this.w = parseFloat(this.c.offsetWidth);
+        this.w = parseFloat(this.c.offsetWidth);
         this.h = parseFloat(this.c.offsetHeight);
         
         this.c.width = this.w;
@@ -314,7 +314,7 @@ function iLineButton(p) {
         this.linelength = ww * 2 + 2 * Math.PI * this.r;
         
         for (var i = 1; i < n + 1; i++) {
-        	this.points.push({x: this.margin + this.r + step * i, y: this.margin});
+            this.points.push({x: this.margin + this.r + step * i, y: this.margin});
         }
         
         this.points.push({x: this.w - this.margin - this.r, y: this.margin, type: "rt"});
@@ -322,15 +322,15 @@ function iLineButton(p) {
         this.points.push({x: this.w - this.margin - this.r, y: this.h - this.margin, type: "rb"});
         
         for (var i = 1; i < n + 1; i++) {
-        	this.points.push({x: this.w - this.margin - this.r - step * i, y: this.h - this.margin});
+            this.points.push({x: this.w - this.margin - this.r - step * i, y: this.h - this.margin});
         }
         
         this.points.push({x: this.margin + this.r, y: this.h - this.margin, type: "lb"});
         this.points.push({x: this.margin, y: this.margin + this.r, type: "lm"});
         
         for (var i = 0; i < this.points.length; i++) {
-        	var t = this.points[i].type;
-        	var x = this.points[i].x;
+            var t = this.points[i].type;
+            var x = this.points[i].x;
             var y = this.points[i].y;
             
             this.points[i] = new this.Vec(x,y);
@@ -357,23 +357,23 @@ function iLineButton(p) {
 }
 
 var ilinebutton1 = new iLineButton({
-	container: mybuttons[0]
+    container: mybuttons[0]
 });
 
 ilinebutton1.show(0);
 
 var ilinebutton2 = new iLineButton({
     container: mybuttons[1],
-    linecolor: "#fff",
-    radius: 25,
+    linecolor: "#e2aa33",
+    radius: 20,
     mouseradius: 200,
-    linesize: 3,
+    linesize: 2,
     mouseforce: 0.5,
     mouseforcedown: -0.35
 });
 
 window.onclick = function(){
-    ilinebutton2.show(400);
+    ilinebutton2.show(700);
 }
 
 var lt = new Date().getTime();
@@ -381,7 +381,7 @@ var lt = new Date().getTime();
 function animate(){
     var t = new Date().getTime();
     var dt = t - lt;
-	ilinebutton1.draw(dt);
+    ilinebutton1.draw(dt);
     ilinebutton2.draw(dt);
     window.requestAnimFrame(animate);
     lt = t;
